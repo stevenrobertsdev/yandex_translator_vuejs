@@ -13,10 +13,13 @@
         </div>
 
         <div class="cell small-12 medium-12 large-6">
-          <select>
-            <option v-for="lang in langs" :key="lang.code">{{
-              lang.lang
-            }}</option>
+          <select v-model="selectedLang" @change="translateText">
+            <option
+              v-for="lang in langs"
+              :key="lang.code"
+              v-bind:value="lang.code"
+              >{{ lang.lang }}</option
+            >
           </select>
           <p>{{ translatedText[0] }}</p>
         </div>
@@ -35,14 +38,14 @@ export default {
       langs,
       textInput: "",
       translatedText: "",
-      selectedLang: langs[0],
+      selectedLang: "az",
     };
   },
   methods: {
     translateText() {
       axios
         .get(
-          `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190409T183835Z.eaf4d3d10ac5dab5.97be973af651913b93ab4476473668024436e374&text=${this.textInput}&lang=en-de`
+          `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190409T183835Z.eaf4d3d10ac5dab5.97be973af651913b93ab4476473668024436e374&text=${this.textInput}&lang=en-${this.selectedLang}`
         )
         .then((res) => {
           this.translatedText = res.data.text;
