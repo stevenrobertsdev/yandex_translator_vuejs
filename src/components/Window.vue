@@ -6,7 +6,7 @@
           <h4>Enter text here</h4>
 
           <textarea
-            v-on:input="translateText"
+            @input="translateText"
             v-model="textInput"
             placeholder="For a real time translation..."
           />
@@ -17,7 +17,7 @@
             <option
               v-for="lang in langs"
               :key="lang.code"
-              v-bind:value="lang.code"
+              :value="lang.code"
               >{{ lang.lang }}</option
             >
           </select>
